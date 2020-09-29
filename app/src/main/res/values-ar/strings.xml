@@ -12,4 +12,6 @@
     <string name="handball">كرة يد</string>
     <string name="basketball">كرة سلة</string>
     <string name="others">أخر</string>
+    <string name="language">لغة</string>
+    <string name="settings">إعدادات</string>
 </resources>

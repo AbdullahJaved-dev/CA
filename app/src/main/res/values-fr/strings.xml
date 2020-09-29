@@ -12,5 +12,7 @@
     <string name="handball">Handball</string>
     <string name="basketball">Basketball</string>
     <string name="others">autres</string>
+    <string name="language">" Langue"</string>
+    <string name="settings">Réglages</string>
 
 </resources>

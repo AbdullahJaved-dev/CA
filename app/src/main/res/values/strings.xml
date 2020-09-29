@@ -12,16 +12,10 @@
     <string name="handball">Handball</string>
     <string name="basketball">Basketball</string>
     <string name="others">Others</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="dummy_string" translatable="false">Cras eu elit congue, placerat dui ut, tincidunt nisl. Nulla leo elit, pharetra bibendum justo quis, cursus consectetur erat. Sed nec posuere turpis. Maecenas nec bibendum purus. Nulla fringilla, lorem iaculis iaculis fermentum, ligula nibh mollis ipsum, et scelerisque risus ante eu sem.</string>
     <string name="navigation_drawer_open" translatable="false">open</string>
     <string name="navigation_drawer_close" translatable="false">close</string>
-    <string name="locale_lang">en</string>
-
-    <string-array name="languages">
-        <item>English</item>
-        <item>Arabic</item>
-        <item>French</item>
-    </string-array>
+    <string name="language">Language</string>
+    <string name="settings">Settings</string>
 </resources>

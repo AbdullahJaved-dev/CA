@@ -13,7 +13,7 @@
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:fontFamily="@font/roboto"
-        android:text="Language"
+        android:text="@string/language"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/_20ssp"
         app:layout_constraintStart_toStartOf="parent"
