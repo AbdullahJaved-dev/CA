@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/ic_media"
+        android:icon="@drawable/ic_media"
+        android:iconTint="#4AEE0000"
+        android:title="@string/multimedia"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/ic_news"
+        android:icon="@drawable/ic_news"
+        android:iconTint="#4AEE0000"
+        android:title="@string/news"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/ic_home"
+        android:icon="@drawable/ic_home"
+        android:iconTint="#4AEE0000"
+        android:title="@string/home"
+        android:enabled="true"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/ic_table"
+        android:icon="@drawable/ic_table"
+        android:iconTint="#4AEE0000"
+        android:title="@string/table"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/ic_matches"
+        android:icon="@drawable/ic_matches"
+        android:iconTint="#4AEE0000"
+        android:title="@string/matches"
+        app:showAsAction="never" />
+</menu>

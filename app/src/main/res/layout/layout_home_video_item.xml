@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_165sdp"
+    android:paddingStart="@dimen/_5sdp"
+    android:paddingEnd="0dp"
+    app:layout_constraintHorizontal_weight="0.9">
+
+    <ImageView
+        android:id="@+id/ivMediaThumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/image_dummy" />
+
+    <ImageView
+        android:id="@+id/ivMediaMask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4A000000"
+        android:scaleType="fitXY" />
+
+    <ImageView
+        android:id="@+id/ivPlayBtn"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:src="@drawable/ic_video_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMediaTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/roboto_bold"
+        android:maxLines="2"
+        android:text="West wood Signs New Three-Year Deal"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintBottom_toTopOf="@id/tvMediaDate"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMediaDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:fontFamily="@font/roboto"
+        android:text="24th Sept"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvMediaTitle" />
+
+    <View
+        android:id="@+id/viewBorder"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/_3sdp"
+        android:background="@color/colorWhite"
+        android:paddingTop="@dimen/_3sdp"
+        android:paddingBottom="@dimen/_3sdp"
+        app:layout_constraintBottom_toBottomOf="@id/tvMediaDate"
+        app:layout_constraintStart_toEndOf="@id/tvMediaDate"
+        app:layout_constraintTop_toTopOf="@id/tvMediaDate" />
+
+    <TextView
+        android:id="@+id/tvMediaSource"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_3sdp"
+        android:fontFamily="@font/roboto"
+        android:text="Club News"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintBottom_toBottomOf="@id/tvMediaDate"
+        app:layout_constraintStart_toEndOf="@id/viewBorder"
+        app:layout_constraintTop_toTopOf="@id/tvMediaDate" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

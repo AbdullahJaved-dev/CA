@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_10sdp"
+    tools:context=".fragments.BasketballFragment">
+
+    <include layout="@layout/layout_table_header" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBasketballPoints"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/layout_table_points_item" />
+
+</LinearLayout>

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">CA</string>
+    <string name="home">Accueil</string>
+    <string name="news">Actualité</string>
+    <string name="multimedia">Multimédia</string>
+    <string name="videos">Vidéos</string>
+    <string name="photos">Photos</string>
+    <string name="songs">Chansons</string>
+    <string name="matches">Matchs</string>
+    <string name="table">Table</string>
+    <string name="football">Football</string>
+    <string name="handball">Handball</string>
+    <string name="basketball">Basketball</string>
+    <string name="others">autres</string>
+
+</resources>

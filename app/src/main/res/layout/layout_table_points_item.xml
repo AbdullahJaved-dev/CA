@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_32sdp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardElevation="4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite">
+
+            <TextView
+                android:id="@+id/tvPosition"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintEnd_toStartOf="@id/lLClub"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/lLClub"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="start|center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toStartOf="@id/tvGamesPlayed"
+                app:layout_constraintHorizontal_weight="3.5"
+                app:layout_constraintStart_toEndOf="@id/tvPosition">
+
+                <ImageView
+                    android:id="@+id/ivClubIcon"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/leicester" />
+
+                <TextView
+                    android:id="@+id/tvClubName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="center"
+                    android:text="Leicester"
+                    android:maxLines="1"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12ssp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tvGamesPlayed"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="6"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintEnd_toStartOf="@id/tvGoalDifference"
+                app:layout_constraintHorizontal_weight="1.25"
+                app:layout_constraintStart_toEndOf="@id/lLClub" />
+
+            <TextView
+                android:id="@+id/tvGoalDifference"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintEnd_toStartOf="@id/tvPoints"
+                app:layout_constraintHorizontal_weight="1.25"
+                app:layout_constraintStart_toEndOf="@id/tvGamesPlayed" />
+
+            <TextView
+                android:id="@+id/tvPoints"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="12"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintEnd_toStartOf="@id/v"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/tvGoalDifference" />
+
+            <LinearLayout
+                android:id="@+id/v"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@id/tvPosition"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/tvPoints"
+                app:layout_constraintTop_toTopOf="@id/tvPosition">
+
+                <ImageView
+                    android:id="@+id/ivPositionUpDown"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@android:drawable/arrow_up_float"
+                    app:tint="@android:color/holo_green_dark" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

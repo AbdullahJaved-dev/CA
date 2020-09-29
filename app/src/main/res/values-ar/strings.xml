@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">النادي الإفريقي</string>
+    <string name="home">الرئيسية</string>
+    <string name="news">الاخبار </string>
+    <string name="multimedia">ميديا</string>
+    <string name="matches">مباريات</string>
+    <string name="table">ترتيب</string>
+    <string name="videos">فيديو</string>
+    <string name="photos">صور</string>
+    <string name="songs">أغاني</string>
+    <string name="football">كرة قدم</string>
+    <string name="handball">كرة يد</string>
+    <string name="basketball">كرة سلة</string>
+    <string name="others">أخر</string>
+</resources>
