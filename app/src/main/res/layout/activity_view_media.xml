@@ -30,10 +30,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <VideoView
-                        android:id="@+id/vViewMedia"
+                    <com.google.android.exoplayer2.ui.PlayerView
+                        android:id="@+id/exoplayerView"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:background="@color/colorBlack"
+                        android:visibility="visible"
+                        app:controller_layout_id="@layout/layout_exoplayer_controllers"
+                        app:fastforward_increment="10000"
+                        app:hide_on_touch="true"
+                        app:player_layout_id="@layout/exo_simple_player_view"
+                        app:resize_mode="fill"
+                        app:rewind_increment="10000"
+                        app:use_controller="true"></com.google.android.exoplayer2.ui.PlayerView>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminateTint="@color/colorPrimary"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
 
                     <ImageView
                         android:id="@+id/ivMediaThumbnail"
@@ -41,12 +62,6 @@
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
                         android:src="@drawable/image_dummy" />
-
-                    <ImageView
-                        android:id="@+id/ivMediaMask"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#4A000000" />
 
                     <ImageView
                         android:id="@+id/ivPlayBtn"

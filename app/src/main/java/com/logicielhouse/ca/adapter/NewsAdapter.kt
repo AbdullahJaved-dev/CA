@@ -17,7 +17,7 @@ import com.logicielhouse.ca.model.NewsModel
  */
 class NewsAdapter(
     private val listener: NewsAdapterClickListener,
-    private val newsList: List<NewsModel>
+    private val newsList: ArrayList<NewsModel>
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
@@ -49,6 +49,7 @@ class NewsAdapter(
         RecyclerView.ViewHolder(videoParent) {
         private val tvPictureTitle: TextView = videoParent.findViewById(R.id.tvPictureTitle)
         private val tvPictureDate: TextView = videoParent.findViewById(R.id.tvPictureDate)
+        private val tvPictureSource: TextView = videoParent.findViewById(R.id.tvPictureSource)
         private val ivPicture: ImageView = videoParent.findViewById(R.id.ivPicture)
         fun setPictureDetails(newsItem: NewsModel) {
             tvPictureTitle.text = newsItem.title
@@ -58,8 +59,10 @@ class NewsAdapter(
             itemView.setOnClickListener {
                 listener.viewPicture(newsItem)
             }
+            tvPictureSource.text = newsItem.videoSource
         }
     }
+
 
     interface NewsAdapterClickListener {
         fun viewPicture(newsItem: NewsModel)

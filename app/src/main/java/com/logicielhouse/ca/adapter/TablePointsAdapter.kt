@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.logicielhouse.ca.R
@@ -13,7 +14,7 @@ import com.logicielhouse.ca.model.TablePointsModel
 /**
  * Created by Abdullah on 9/27/2020.
  */
-class TablePointsAdapter(private val pointsList: List<TablePointsModel>) :
+class TablePointsAdapter(private val pointsList: ArrayList<TablePointsModel>) :
     RecyclerView.Adapter<TablePointsAdapter.PointsViewHolder>() {
     class PointsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvPosition: TextView = itemView.findViewById(R.id.tvPosition)
@@ -40,7 +41,33 @@ class TablePointsAdapter(private val pointsList: List<TablePointsModel>) :
             tvGoalDifference.text = pointsItem.goalDifference.toString()
             tvPoints.text = pointsItem.points.toString()
             Glide.with(ivClubIcon.context).load(pointsItem.clubImage).into(ivClubIcon)
-            Glide.with(ivRankStatus.context).load(pointsItem.rankStatus).into(ivRankStatus)
+            when (pointsItem.rankStatus) {
+                0 -> {
+                    Glide.with(ivRankStatus.context).load(
+                        ContextCompat.getDrawable(
+                            ivRankStatus.context,
+                            R.drawable.ic_same
+                        )
+                    ).into(ivRankStatus)
+                }
+                1 -> {
+                    Glide.with(ivRankStatus.context).load(
+                        ContextCompat.getDrawable(
+                            ivRankStatus.context,
+                            R.drawable.ic_up
+                        )
+                    ).into(ivRankStatus)
+                }
+                else -> {
+                    Glide.with(ivRankStatus.context).load(
+                        ContextCompat.getDrawable(
+                            ivRankStatus.context,
+                            R.drawable.ic_down
+                        )
+                    ).into(ivRankStatus)
+                }
+            }
+
         }
     }
 

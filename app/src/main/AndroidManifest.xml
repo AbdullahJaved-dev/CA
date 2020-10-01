@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.logicielhouse.ca">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".BaseApplication"
         android:allowBackup="true"
@@ -10,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:configChanges="locale" android:name=".SettingsActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:configChanges="locale" />
         <activity
             android:name=".SplashActivity"
             android:configChanges="locale"
@@ -23,6 +27,7 @@
         </activity>
         <activity
             android:name=".ViewMediaActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".MainActivity"

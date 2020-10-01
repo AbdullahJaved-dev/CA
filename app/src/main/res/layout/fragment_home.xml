@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/colorWhite"
     android:layout_height="match_parent"
     tools:context=".fragments.HomeFragment">
 
@@ -17,9 +18,9 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_15sdp"
             android:fontFamily="@font/roboto_bold"
-            android:text="Clarets Player HD"
+            android:text="@string/clarets_player_hd"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_20ssp"
+            android:textSize="@dimen/_18ssp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,9 +31,9 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:fontFamily="@font/roboto"
-            android:text="View All Videos"
+            android:text="@string/view_all_videos"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="@id/tvHomeVideosTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvHomeVideosTitle" />
@@ -53,9 +54,9 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_25sdp"
             android:fontFamily="@font/roboto_bold"
-            android:text="Latest News"
+            android:text="@string/latest_news"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_20ssp"
+            android:textSize="@dimen/_18ssp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rvHomeVideos" />
 
@@ -66,9 +67,10 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:fontFamily="@font/roboto"
-            android:text="View All News"
+            android:background="@color/colorWhite"
+            android:text="@string/view_all_news"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="@id/tvHomeNewsTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvHomeNewsTitle" />
@@ -89,9 +91,9 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_25sdp"
             android:fontFamily="@font/roboto_bold"
-            android:text="League Table"
+            android:text="@string/league_table"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_20ssp"
+            android:textSize="@dimen/_18ssp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rvNewsItems" />
 
@@ -102,9 +104,9 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:fontFamily="@font/roboto"
-            android:text="View Full Table"
+            android:text="@string/view_full_table"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="@id/tvHomePointsTableTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvHomePointsTableTitle" />

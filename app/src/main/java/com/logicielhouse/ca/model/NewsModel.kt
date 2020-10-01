@@ -1,22 +1,20 @@
 package com.logicielhouse.ca.model
 
-import com.logicielhouse.ca.R
-
 /**
  * Created by Abdullah on 9/27/2020.
  */
 data class NewsModel(
     val id: Int = 0,
-    val pictureURI: Int = 0,
+    val pictureURI: String = "",
     val title: String = "",
     val date: String = "",
-    val description: Int = 0,
+    val description: String = "",
     val videoSource: String = "",
-    val videoThumbnail: Int = 0,
+    val videoThumbnail: String = "",
     val videoURI: String = ""
 ) {
     companion object {
-        val newsList = mutableListOf(
+        /*val newsList = mutableListOf(
             NewsModel(
                 1,
                 R.drawable.image_dummy,
@@ -57,7 +55,7 @@ data class NewsModel(
                 0,
                 ""
             ),
-        )
+        )*/
     }
 
 }

@@ -22,6 +22,8 @@ class PicturesAdapter(
         val tvPictureTitle: TextView = itemView.findViewById(R.id.tvPictureTitle)
         val tvPictureDate: TextView = itemView.findViewById(R.id.tvPictureDate)
         val ivPicture: ImageView = itemView.findViewById(R.id.ivPicture)
+        val tvPictureSource: TextView = itemView.findViewById(R.id.tvPictureSource)
+        val viewBorder: View = itemView.findViewById(R.id.viewBorder)
     }
 
     interface PicturesAdapterClickListeners {
@@ -39,6 +41,8 @@ class PicturesAdapter(
         holder.apply {
             tvPictureTitle.text = pictureItem.pictureTitle
             tvPictureDate.text = pictureItem.pictureDate
+            tvPictureSource.visibility = View.GONE
+            viewBorder.visibility = View.GONE
             Glide.with(ivPicture.context).load(pictureItem.pictureURI)
                 .into(ivPicture)
             itemView.setOnClickListener {

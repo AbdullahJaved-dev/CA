@@ -18,4 +18,10 @@
     <string name="navigation_drawer_close" translatable="false">close</string>
     <string name="language">Language</string>
     <string name="settings">Settings</string>
+    <string name="view_all_videos">View All Videos</string>
+    <string name="view_all_news">View All News</string>
+    <string name="view_full_table">View Full Table</string>
+    <string name="latest_news">Latest News</string>
+    <string name="league_table">League Table</string>
+    <string name="clarets_player_hd">Clarets Player HD</string>
 </resources>

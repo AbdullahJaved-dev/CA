@@ -22,6 +22,7 @@ class VideosAdapter(
         val tvVideoTitle: TextView = itemView.findViewById(R.id.tvMediaTitle)
         val tvVideoDate: TextView = itemView.findViewById(R.id.tvMediaDate)
         val tvVideoSource: TextView = itemView.findViewById(R.id.tvMediaSource)
+        val viewBorder: View = itemView.findViewById(R.id.viewBorder)
         val ivVideoThumbnail: ImageView = itemView.findViewById(R.id.ivMediaThumbnail)
         val ivPlayBtn: ImageView = itemView.findViewById(R.id.ivPlayBtn)
     }
@@ -51,7 +52,8 @@ class VideosAdapter(
         holder.apply {
             tvVideoTitle.text = videoItem.videoTitle
             tvVideoDate.text = videoItem.videoDate
-            tvVideoSource.text = videoItem.videoSource
+            tvVideoSource.visibility = View.GONE
+            viewBorder.visibility = View.GONE
             Glide.with(ivVideoThumbnail.context).load(videoItem.videoThumbnail)
                 .into(ivVideoThumbnail)
             ivPlayBtn.setOnClickListener {

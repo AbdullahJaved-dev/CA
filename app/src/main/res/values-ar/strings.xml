@@ -14,4 +14,10 @@
     <string name="others">أخر</string>
     <string name="language">لغة</string>
     <string name="settings">إعدادات</string>
+    <string name="view_all_videos">عرض جميع مقاطع الفيديو</string>
+    <string name="view_all_news">عرض كل الأخبار</string>
+    <string name="view_full_table">عرض الجدول الكامل</string>
+    <string name="latest_news">أحدث الأخبار</string>
+    <string name="league_table">جدول الدوري</string>
+    <string name="clarets_player_hd">كلاريت بلاير HD</string>
 </resources>

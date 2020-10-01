@@ -14,5 +14,11 @@
     <string name="others">autres</string>
     <string name="language">" Langue"</string>
     <string name="settings">Réglages</string>
+    <string name="view_all_videos">Voir toutes vidéos</string>
+    <string name="view_all_news">Voir toutes actualités</string>
+    <string name="view_full_table">Afficher tableau complet</string>
+    <string name="latest_news">Dernières nouvelles</string>
+    <string name="league_table">Table ligue</string>
+    <string name="clarets_player_hd">"Clarets Player HD "</string>
 
 </resources>
