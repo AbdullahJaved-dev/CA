@@ -1,6 +1,5 @@
 package com.logicielhouse.ca.adapter
 
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -70,16 +69,15 @@ class NewsAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        Log.d("VideoURI", "getItemViewType: " + TextUtils.isEmpty(newsList[position].videoURI))
-        return if (TextUtils.isEmpty(newsList[position].videoURI)) {
+        return if (newsList[position].videoURI == "null") {
             TYPE_PHOTO
         } else {
+            Log.d("VideoDataLink", " ${newsList[position].videoURI}, $position")
             TYPE_VIDEO
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
         val view: View
         return if (viewType == TYPE_PHOTO) {
             view = LayoutInflater.from(parent.context)
@@ -94,10 +92,11 @@ class NewsAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val newsModel = newsList[position]
         if (getItemViewType(position) == TYPE_VIDEO) {
-            (holder as VideoViewHolder).setVideoDetails(newsList[position])
+            (holder as VideoViewHolder).setVideoDetails(newsModel)
         } else {
-            (holder as PictureViewHolder).setPictureDetails(newsList[position])
+            (holder as PictureViewHolder).setPictureDetails(newsModel)
         }
     }
 

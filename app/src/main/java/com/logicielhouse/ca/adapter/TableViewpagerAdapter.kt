@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.logicielhouse.ca.fragments.BasketballFragment
 import com.logicielhouse.ca.fragments.FootballFragment
+import com.logicielhouse.ca.fragments.HandballFragment
 import com.logicielhouse.ca.fragments.OthersFragment
 
 /**
@@ -17,7 +18,7 @@ class TableViewpagerAdapter(fragment: Fragment) :
         return when (position) {
             0 -> FootballFragment()
             1 -> BasketballFragment()
-            2 -> BasketballFragment()
+            2 -> HandballFragment()
             else -> OthersFragment()
         }
     }

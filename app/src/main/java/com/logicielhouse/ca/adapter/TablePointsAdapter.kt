@@ -40,7 +40,8 @@ class TablePointsAdapter(private val pointsList: ArrayList<TablePointsModel>) :
             tvGamesPlayed.text = pointsItem.gamePlayed.toString()
             tvGoalDifference.text = pointsItem.goalDifference.toString()
             tvPoints.text = pointsItem.points.toString()
-            Glide.with(ivClubIcon.context).load(pointsItem.clubImage).into(ivClubIcon)
+            Glide.with(ivClubIcon.context).load(pointsItem.clubImage).error(R.drawable.leicester)
+                .into(ivClubIcon)
             when (pointsItem.rankStatus) {
                 0 -> {
                     Glide.with(ivRankStatus.context).load(

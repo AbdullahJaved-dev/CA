@@ -24,4 +24,8 @@
     <string name="latest_news">Latest News</string>
     <string name="league_table">League Table</string>
     <string name="clarets_player_hd">Clarets Player HD</string>
+    <string name="unknown_error">Unknown Error occurred, Restart App!</string>
+    <string name="group_a">Group A</string>
+    <string name="group_b">Group B</string>
+    <string name="no_data">No data found!</string>
 </resources>

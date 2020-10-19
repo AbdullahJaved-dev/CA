@@ -7,16 +7,21 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.NetworkResponse
-import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.logicielhouse.ca.*
+import com.logicielhouse.ca.BaseApplication
+import com.logicielhouse.ca.R
 import com.logicielhouse.ca.adapter.NewsAdapter
 import com.logicielhouse.ca.model.NewsModel
 import com.logicielhouse.ca.model.PicturesModel
 import com.logicielhouse.ca.model.VideosModel
+import com.logicielhouse.ca.ui.MainActivity
+import com.logicielhouse.ca.ui.ViewMediaActivity
+import com.logicielhouse.ca.utils.AppConstants
+import com.logicielhouse.ca.utils.displayMessage
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_news.*
 import org.json.JSONArray
@@ -34,12 +39,27 @@ class NewsFragment : Fragment(R.layout.fragment_news), NewsAdapter.NewsAdapterCl
         (activity as MainActivity).bottomNavigation.menu.getItem(1).isChecked = true
         (activity as MainActivity).setToolbarTitle(getString(R.string.news))
         newsAdapterClickListener = this
+        setupUI()
         getAllNews()
         swipeRefresh.setOnRefreshListener {
+            newsProgressBar.visibility = View.VISIBLE
             newsList = ArrayList()
             getAllNews()
             swipeRefresh.isRefreshing =
                 false
+        }
+    }
+
+    private fun setupUI() {
+        newsAdapter = NewsAdapter(newsAdapterClickListener, newsList)
+        rvNews.apply {
+            adapter = newsAdapter
+            layoutManager =
+                LinearLayoutManager(
+                    requireContext(),
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
         }
     }
 
@@ -49,7 +69,7 @@ class NewsFragment : Fragment(R.layout.fragment_news), NewsAdapter.NewsAdapterCl
 
     private fun getAllNews() {
         val newsRequest = object :
-            JsonObjectRequest(Request.Method.GET, AppConstants.GET_NEWS, null, { response ->
+            JsonObjectRequest(Method.GET, AppConstants.GET_NEWS, null, { response ->
                 try {
                     newsList.clear()
                     val newsArray: JSONArray = response.getJSONArray("news")
@@ -58,43 +78,42 @@ class NewsFragment : Fragment(R.layout.fragment_news), NewsAdapter.NewsAdapterCl
                         val newsObject: JSONObject = newsArray.getJSONObject(i)
                         val newsModel = NewsModel(
                             newsObject.getInt("news_id"),
-                            newsObject.getString("imageUri"),
+                            newsObject.optString("imageUri"),
                             newsObject.getString("news_title"),
+                            newsObject.optString("thumbnailUri"),
+                            newsObject.optString("videoUri"),
                             newsObject.getString("created_at"),
-                            newsObject.getString("news_details"),
                             newsObject.getString("categories_name"),
-                            newsObject.getString("thumbnailUri"),
-                            newsObject.getString("videoUri"),
+                            newsObject.getString("news_details")
                         )
                         newsList.add(newsModel)
                         Log.d("NewsArrayList", newsList.toString())
                         i++
                     }
                     Log.d("NewsArrayList", newsList.toString())
-
-                    newsAdapter = NewsAdapter(newsAdapterClickListener, newsList)
-                    try {
-                        rvNews.apply {
-                            adapter = newsAdapter
-                            layoutManager =
-                                LinearLayoutManager(
-                                    requireContext(),
-                                    LinearLayoutManager.VERTICAL,
-                                    false
-                                )
+                    newsAdapter.notifyDataSetChanged()
+                    if (newsProgressBar != null) {
+                        newsProgressBar.visibility = View.GONE
+                        if (newsList.size == 0) {
+                            tvNoDataFound.visibility = View.VISIBLE
+                        } else {
+                            tvNoDataFound.visibility = View.GONE
                         }
-                    } catch (e1: Exception) {
-                        newsList.clear()
-                        getAllNews()
                     }
+
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }, { error ->
-                val response: NetworkResponse = error.networkResponse
-                if (response.data != null) {
-                    val errorObj = JSONObject(String(response.data))
-                    displayMessage(requireContext(), errorObj.optString("message"))
+                try {
+                    newsProgressBar.visibility = View.GONE
+                    val response: NetworkResponse = error.networkResponse
+                    if (response.data != null) {
+                        val errorObj = JSONObject(String(response.data))
+                        displayMessage(requireActivity(), errorObj.optString("message"))
+                    }
+                } catch (e: Exception) {
+                    displayMessage(requireActivity(), getString(R.string.unknown_error))
                 }
             }) {
             override fun getHeaders(): MutableMap<String, String> {
@@ -105,6 +124,8 @@ class NewsFragment : Fragment(R.layout.fragment_news), NewsAdapter.NewsAdapterCl
                 return headers
             }
         }
+        newsRequest.retryPolicy = DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+
         val requestQueue: RequestQueue = Volley.newRequestQueue(requireContext())
         requestQueue.add(newsRequest)
     }

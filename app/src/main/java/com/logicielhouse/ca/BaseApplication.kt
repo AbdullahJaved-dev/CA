@@ -28,6 +28,6 @@ class BaseApplication : Application() {
 
     fun getLanguagePref(): String? {
         val pref = getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-        return pref.getString(LOCALE, "en")
+        return pref.getString(LOCALE, "ar")
     }
 }

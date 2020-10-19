@@ -7,13 +7,18 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.NetworkResponse
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.logicielhouse.ca.*
+import com.logicielhouse.ca.BaseApplication
+import com.logicielhouse.ca.R
 import com.logicielhouse.ca.adapter.VideosAdapter
 import com.logicielhouse.ca.model.VideosModel
+import com.logicielhouse.ca.ui.ViewMediaActivity
+import com.logicielhouse.ca.utils.AppConstants
+import com.logicielhouse.ca.utils.displayMessage
 import kotlinx.android.synthetic.main.fragment_videos.*
 import org.json.JSONArray
 import org.json.JSONException
@@ -28,13 +33,26 @@ class VideosFragment : Fragment(R.layout.fragment_videos),
         super.onViewCreated(view, savedInstanceState)
         videosAdapterClickListeners = this
 
+        videosAdapter = VideosAdapter(videosAdapterClickListeners, videosList, "video")
+        rvVideos.apply {
+            adapter = videosAdapter
+            layoutManager =
+                LinearLayoutManager(
+                    requireContext(),
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+        }
+
         getAllVideos()
         swipeRefresh.setOnRefreshListener {
+            videosProgressBar.visibility = View.VISIBLE
             videosList = ArrayList()
             getAllVideos()
             swipeRefresh.isRefreshing =
                 false
         }
+
     }
 
     private fun getAllVideos() {
@@ -57,26 +75,30 @@ class VideosFragment : Fragment(R.layout.fragment_videos),
                         videosList.add(videosModel)
                         i++
                     }
-                    Log.d("PhotosArrayList", videosList.toString())
-                    videosAdapter = VideosAdapter(videosAdapterClickListeners, videosList, "video")
-                    rvVideos.apply {
-                        adapter = videosAdapter
-                        layoutManager =
-                            LinearLayoutManager(
-                                requireContext(),
-                                LinearLayoutManager.VERTICAL,
-                                false
-                            )
+                    videosAdapter.notifyDataSetChanged()
+                    if (videosProgressBar != null) {
+                        videosProgressBar.visibility = View.GONE
+                        if (videosList.size == 0) {
+                            tvNoDataFound.visibility = View.VISIBLE
+                        } else {
+                            tvNoDataFound.visibility = View.GONE
+                        }
                     }
 
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }, { error ->
-                val response: NetworkResponse = error.networkResponse
-                if (response.data != null) {
-                    val errorObj = JSONObject(String(response.data))
-                    displayMessage(requireContext(), errorObj.optString("message"))
+                try {
+                    videosProgressBar.visibility = View.GONE
+                    val response: NetworkResponse = error.networkResponse
+                    if (response.data != null) {
+                        val errorObj = JSONObject(String(response.data))
+                        displayMessage(requireActivity(), errorObj.optString("message"))
+                    }
+                } catch (e: Exception) {
+                    Log.e("TAG", "getAllVideos: " + e.localizedMessage)
+                    displayMessage(requireActivity(), getString(R.string.unknown_error))
                 }
             }) {
             override fun getHeaders(): MutableMap<String, String> {
@@ -87,7 +109,11 @@ class VideosFragment : Fragment(R.layout.fragment_videos),
                 headers["languages-code"] = pref?.getString(BaseApplication.LOCALE, "en") as String
                 return headers
             }
+
         }
+        videosRequest.retryPolicy =
+            DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+
         val requestQueue: RequestQueue = Volley.newRequestQueue(requireContext())
         requestQueue.add(videosRequest)
     }

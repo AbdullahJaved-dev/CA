@@ -3,8 +3,8 @@ package com.logicielhouse.ca.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.logicielhouse.ca.MainActivity
 import com.logicielhouse.ca.R
+import com.logicielhouse.ca.ui.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -17,6 +17,5 @@ class MatchesFragment : Fragment(R.layout.fragment_matches) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).bottomNavigation.menu.getItem(4).isChecked = true
         (activity as MainActivity).setToolbarTitle(getString(R.string.matches))
-
     }
 }

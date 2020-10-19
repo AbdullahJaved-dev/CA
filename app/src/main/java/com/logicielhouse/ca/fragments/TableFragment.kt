@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
-import com.logicielhouse.ca.MainActivity
 import com.logicielhouse.ca.R
 import com.logicielhouse.ca.adapter.TableViewpagerAdapter
+import com.logicielhouse.ca.ui.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_table.*
 

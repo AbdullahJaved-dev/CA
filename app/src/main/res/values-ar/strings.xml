@@ -20,4 +20,8 @@
     <string name="latest_news">أحدث الأخبار</string>
     <string name="league_table">جدول الدوري</string>
     <string name="clarets_player_hd">كلاريت بلاير HD</string>
+    <string name="unknown_error">حدث خطأ غير معروف ، أعد تشغيل التطبيق!</string>
+    <string name="group_a">المجموعة أ</string>
+    <string name="group_b">المجموعة ب</string>
+    <string name="no_data">لاتوجد بيانات!</string>
 </resources>

@@ -20,5 +20,9 @@
     <string name="latest_news">Dernières nouvelles</string>
     <string name="league_table">Table ligue</string>
     <string name="clarets_player_hd">"Clarets Player HD "</string>
+    <string name="unknown_error">Une erreur inconnue s\'est produite, redémarrez l\'application!</string>
+    <string name="group_a">Groupe A</string>
+    <string name="group_b">Groupe B</string>
+    <string name="no_data">Aucune donnée disponible!</string>
 
 </resources>

@@ -10,14 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/image_dummy" />
-
-    <ImageView
-        android:id="@+id/ivMediaMask"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#4A000000"
-        android:scaleType="fitXY" />
+        />
 
     <TextView
         android:id="@+id/tvPictureTitle"

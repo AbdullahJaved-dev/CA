@@ -4,16 +4,17 @@ package com.logicielhouse.ca.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.DefaultRetryPolicy
 import com.android.volley.NetworkResponse
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.logicielhouse.ca.*
+import com.logicielhouse.ca.BaseApplication
+import com.logicielhouse.ca.R
 import com.logicielhouse.ca.adapter.NewsAdapter
 import com.logicielhouse.ca.adapter.TablePointsAdapter
 import com.logicielhouse.ca.adapter.VideosAdapter
@@ -21,6 +22,10 @@ import com.logicielhouse.ca.model.NewsModel
 import com.logicielhouse.ca.model.PicturesModel
 import com.logicielhouse.ca.model.TablePointsModel
 import com.logicielhouse.ca.model.VideosModel
+import com.logicielhouse.ca.ui.MainActivity
+import com.logicielhouse.ca.ui.ViewMediaActivity
+import com.logicielhouse.ca.utils.AppConstants
+import com.logicielhouse.ca.utils.displayMessage
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.json.JSONArray
@@ -67,6 +72,42 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener,
     private fun setupUI() {
         (activity as MainActivity).bottomNavigation.menu.getItem(2).isChecked = true
         (activity as MainActivity).setToolbarTitle(getString(R.string.home))
+
+        newsAdapter = NewsAdapter(newsAdapterClickListener, newsList)
+        val layoutManagerHorizontal1 =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        rvNewsItems.apply {
+            adapter = newsAdapter
+            layoutManager = layoutManagerHorizontal1
+            val dividerItemDecoration = DividerItemDecoration(
+                rvNewsItems.context,
+                layoutManagerHorizontal1.orientation
+            )
+            addItemDecoration(dividerItemDecoration)
+        }
+
+        videosAdapter = VideosAdapter(videosAdapterClickListeners, videosList, "home")
+        val layoutManagerHorizontal =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        rvHomeVideos.apply {
+            adapter = videosAdapter
+            layoutManager = layoutManagerHorizontal
+        }
+
+        tablePointsAdapter = TablePointsAdapter(pointsList)
+
+        rvPintsTable.apply {
+            adapter = tablePointsAdapter
+            layoutManager =
+                LinearLayoutManager(
+                    requireContext(),
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+
+        }
     }
 
     override fun onClick(p0: View?) {
@@ -91,6 +132,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener,
     }
 
     private fun getAllNews() {
+        val requestQueue: RequestQueue = Volley.newRequestQueue(requireContext())
         val newsRequest = object :
             JsonObjectRequest(Method.GET, AppConstants.GET_NEWS, null, { response ->
                 try {
@@ -101,52 +143,42 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener,
                         val newsObject: JSONObject = newsArray.getJSONObject(i)
                         val newsModel = NewsModel(
                             newsObject.getInt("news_id"),
-                            newsObject.getString("imageUri"),
+                            newsObject.optString("imageUri"),
                             newsObject.getString("news_title"),
+                            newsObject.optString("thumbnailUri"),
+                            newsObject.optString("videoUri"),
                             newsObject.getString("created_at"),
-                            newsObject.getString("news_details"),
                             newsObject.getString("categories_name"),
-                            newsObject.getString("thumbnailUri"),
-                            newsObject.getString("videoUri"),
+                            newsObject.getString("news_details")
                         )
                         newsList.add(newsModel)
-                        Log.d("NewsArrayList", newsList.toString())
                         i++
                     }
-                    Log.d("NewsArrayList", newsList.toString())
-                    newsAdapter = NewsAdapter(newsAdapterClickListener, newsList)
-                    val layoutManagerHorizontal1 =
-                        LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
-                    rvNewsItems.apply {
-                        adapter = newsAdapter
-                        layoutManager = layoutManagerHorizontal1
-                        val dividerItemDecoration = DividerItemDecoration(
-                            rvNewsItems.context,
-                            layoutManagerHorizontal1.orientation
-                        )
-                        addItemDecoration(dividerItemDecoration)
-                    }
-
+                    //Log.d("NewsArrayList", newsList.toString())
+                    newsAdapter.notifyDataSetChanged()
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }, { error ->
-                val response: NetworkResponse = error.networkResponse
-                if (response.data != null) {
-                    val errorObj = JSONObject(String(response.data))
-                    displayMessage(requireContext(), errorObj.optString("message"))
+                try {
+                    val response: NetworkResponse = error.networkResponse
+                    if (response.data != null) {
+                        val errorObj = JSONObject(String(response.data))
+                        displayMessage(requireActivity(), errorObj.optString("message"))
+                    }
+                } catch (e: Exception) {
+                    displayMessage(requireActivity(), getString(R.string.unknown_error))
                 }
             }) {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()
                 val pref =
                     activity?.getSharedPreferences(BaseApplication.PREFS, Context.MODE_PRIVATE)
-                headers["languages-code"] = pref?.getString(BaseApplication.LOCALE, "en") as String
+                headers["languages-code"] = pref?.getString(BaseApplication.LOCALE, "ar") as String
                 return headers
             }
         }
-        val requestQueue: RequestQueue = Volley.newRequestQueue(requireContext())
+        newsRequest.retryPolicy = DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         requestQueue.add(newsRequest)
     }
 
@@ -170,24 +202,20 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener,
                         videosList.add(videosModel)
                         i++
                     }
-                    Log.d("videosArrayList", videosList.toString())
-                    videosAdapter = VideosAdapter(videosAdapterClickListeners, videosList, "home")
-                    val layoutManagerHorizontal =
-                        LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
-                    rvHomeVideos.apply {
-                        adapter = videosAdapter
-                        layoutManager = layoutManagerHorizontal
-                    }
-
+                    // Log.d("videosArrayList", videosList.toString())
+                    videosAdapter.notifyDataSetChanged()
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }, { error ->
-                val response: NetworkResponse = error.networkResponse
-                if (response.data != null) {
-                    val errorObj = JSONObject(String(response.data))
-                    displayMessage(requireContext(), errorObj.optString("message"))
+                try {
+                    val response: NetworkResponse = error.networkResponse
+                    if (response.data != null) {
+                        val errorObj = JSONObject(String(response.data))
+                        displayMessage(requireActivity(), errorObj.optString("message"))
+                    }
+                } catch (e: Exception) {
+                    displayMessage(requireActivity(), getString(R.string.unknown_error))
                 }
             }) {
             override fun getHeaders(): MutableMap<String, String> {
@@ -195,10 +223,13 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener,
                 val pref =
                     activity?.getSharedPreferences(BaseApplication.PREFS, Context.MODE_PRIVATE)
                 headers["type"] = "video"
-                headers["languages-code"] = pref?.getString(BaseApplication.LOCALE, "en") as String
+                headers["languages-code"] = pref?.getString(BaseApplication.LOCALE, "ar") as String
                 return headers
             }
         }
+        videosRequest.retryPolicy =
+            DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
+
         val requestQueue: RequestQueue = Volley.newRequestQueue(requireContext())
         requestQueue.add(videosRequest)
     }
@@ -206,6 +237,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener,
     private fun getTablePoints() {
         val pointsRequest = object :
             JsonObjectRequest(Method.GET, AppConstants.GET_POINTS, null, { response ->
+
                 try {
                     pointsList.clear()
                     val pointsArray: JSONArray = response.getJSONArray("club_point")
@@ -216,7 +248,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener,
                             pointsObject.optInt("club_id"),
                             pointsObject.optInt("position"),
                             pointsObject.getString("club_logo_uri"),
-                            pointsObject.getString("club_title"),
+                            pointsObject.optString("club_name"),
                             pointsObject.optInt("gamePlayed"),
                             pointsObject.optInt("goalDifference"),
                             pointsObject.optInt("Points"),
@@ -225,38 +257,37 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener,
                         pointsList.add(pointsModel)
                         i++
                     }
-                    Log.d("pointsArrayList", pointsList.toString())
-                    tablePointsAdapter = TablePointsAdapter(pointsList)
-
-                    rvPintsTable.apply {
-                        adapter = tablePointsAdapter
-                        layoutManager =
-                            LinearLayoutManager(
-                                requireContext(),
-                                LinearLayoutManager.VERTICAL,
-                                false
-                            )
-
+                    tablePointsAdapter.notifyDataSetChanged()
+                    if (progressBar != null) {
+                        progressBar.visibility = View.GONE
                     }
-
                 } catch (e: JSONException) {
                     e.printStackTrace()
+                    progressBar.visibility = View.GONE
                 }
             }, { error ->
-                val response: NetworkResponse = error.networkResponse
-                if (response.data != null) {
-                    val errorObj = JSONObject(String(response.data))
-                    displayMessage(requireContext(), errorObj.optString("message"))
+                try {
+                    progressBar.visibility = View.GONE
+                    val response: NetworkResponse = error.networkResponse
+                    if (response.data != null) {
+                        val errorObj = JSONObject(String(response.data))
+                        displayMessage(requireActivity(), errorObj.optString("message"))
+                    }
+                } catch (e: Exception) {
+                    displayMessage(requireActivity(), getString(R.string.unknown_error))
                 }
             }) {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()
                 val pref =
                     activity?.getSharedPreferences(BaseApplication.PREFS, Context.MODE_PRIVATE)
-                headers["languages-code"] = pref?.getString(BaseApplication.LOCALE, "en") as String
+                headers["languages-code"] = pref?.getString(BaseApplication.LOCALE, "ar") as String
+                headers["game_name"] = "football"
                 return headers
             }
         }
+        pointsRequest.retryPolicy =
+            DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         val requestQueue: RequestQueue = Volley.newRequestQueue(requireContext())
         requestQueue.add(pointsRequest)
     }

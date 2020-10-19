@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,14 +8,53 @@
     android:paddingTop="@dimen/_10sdp"
     tools:context=".fragments.HandballFragment">
 
-    <include layout="@layout/layout_table_header" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvHandballPoints"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:listitem="@layout/layout_table_points_item" />
+        android:orientation="vertical">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1A808080"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/group_a"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_20ssp" />
+
+        <include layout="@layout/layout_table_header" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHandballAPoints"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:listitem="@layout/layout_table_points_item" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1A808080"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:text="@string/group_b"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_20ssp" />
+
+        <include layout="@layout/layout_table_header" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHandballBPoints"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:listitem="@layout/layout_table_points_item" />
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>
