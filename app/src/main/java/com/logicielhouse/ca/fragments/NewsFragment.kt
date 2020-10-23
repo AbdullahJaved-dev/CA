@@ -120,7 +120,7 @@ class NewsFragment : Fragment(R.layout.fragment_news), NewsAdapter.NewsAdapterCl
                 val headers = HashMap<String, String>()
                 val pref =
                     activity?.getSharedPreferences(BaseApplication.PREFS, Context.MODE_PRIVATE)
-                headers["languages-code"] = pref?.getString(BaseApplication.LOCALE, "en") as String
+                headers["languages-code"] = pref?.getString(BaseApplication.LOCALE, "ar") as String
                 return headers
             }
         }

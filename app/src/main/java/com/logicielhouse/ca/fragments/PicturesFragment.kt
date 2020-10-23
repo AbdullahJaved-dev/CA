@@ -111,7 +111,7 @@ class PicturesFragment : Fragment(R.layout.fragment_pivtures),
                 val pref =
                     activity?.getSharedPreferences(BaseApplication.PREFS, Context.MODE_PRIVATE)
                 headers["type"] = "images"
-                headers["languages-code"] = pref?.getString(BaseApplication.LOCALE, "en") as String
+                headers["languages-code"] = pref?.getString(BaseApplication.LOCALE, "ar") as String
                 return headers
             }
         }

@@ -106,7 +106,7 @@ class VideosFragment : Fragment(R.layout.fragment_videos),
                 val pref =
                     activity?.getSharedPreferences(BaseApplication.PREFS, Context.MODE_PRIVATE)
                 headers["type"] = "video"
-                headers["languages-code"] = pref?.getString(BaseApplication.LOCALE, "en") as String
+                headers["languages-code"] = pref?.getString(BaseApplication.LOCALE, "ar") as String
                 return headers
             }
 

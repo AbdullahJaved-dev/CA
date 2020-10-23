@@ -102,7 +102,7 @@ class FootballFragment : Fragment(R.layout.fragment_football) {
                 val headers = HashMap<String, String>()
                 val pref =
                     activity?.getSharedPreferences(BaseApplication.PREFS, Context.MODE_PRIVATE)
-                headers["languages-code"] = pref?.getString(BaseApplication.LOCALE, "en") as String
+                headers["languages-code"] = pref?.getString(BaseApplication.LOCALE, "ar") as String
                 headers["game_name"] = "football"
                 return headers
             }
