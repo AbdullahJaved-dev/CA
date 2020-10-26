@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/ic_settings"
+    <item
+        android:id="@+id/ic_settings"
         android:title="@string/settings"
-        android:icon="@drawable/ic_settings"
-        android:iconTint="@color/colorPrimary"
+        android:icon="@drawable/ic_settings" />
+    <item
+        android:id="@+id/ic_News"
+        android:icon="@drawable/ic_news"
+        android:title="@string/news" />
+    <item
+        android:id="@+id/ic_Videos"
+        android:icon="@drawable/ic_videos"
+        android:title="@string/videos"
+
         />
+    <item
+        android:id="@+id/ic_Images"
+        android:icon="@drawable/ic_images"
+        android:title="@string/photos" />
+    <item
+        android:id="@+id/ic_Songs"
+        android:icon="@drawable/ic_songs"
+        android:title="@string/songs" />
+    <item
+        android:id="@+id/ic_Notifications"
+        android:icon="@drawable/ic_notifications"
+        android:title="@string/notifications" />
 </menu>

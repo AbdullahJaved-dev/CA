@@ -18,7 +18,7 @@ object LocaleManager {
     }
 
     private fun updateResources(context: Context, language: String): Context {
-        var localContext = context
+        var localContext: Context
         val locale = Locale(language)
         Locale.setDefault(locale)
         val res = context.resources

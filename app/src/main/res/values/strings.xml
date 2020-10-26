@@ -28,4 +28,5 @@
     <string name="group_a">Group A</string>
     <string name="group_b">Group B</string>
     <string name="no_data">No data found!</string>
+    <string name="notifications">Notifications</string>
 </resources>

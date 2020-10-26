@@ -14,6 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.NotificationsActivity" />
+        <activity android:name=".ui.SongsActivity" />
+        <activity android:name=".ui.ImagesActivity" />
+        <activity android:name=".ui.VideosActivity" />
+        <activity android:name=".ui.NewsActivity" />
         <activity
             android:name=".ui.VideoActivity"
             android:theme="@style/AppTheme2" />

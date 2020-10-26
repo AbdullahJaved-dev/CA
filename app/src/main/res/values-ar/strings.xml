@@ -24,4 +24,5 @@
     <string name="group_a">المجموعة أ</string>
     <string name="group_b">المجموعة ب</string>
     <string name="no_data">لاتوجد بيانات!</string>
+    <string name="notifications">إشعارات</string>
 </resources>

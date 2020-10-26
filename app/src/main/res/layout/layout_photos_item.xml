@@ -9,8 +9,8 @@
         android:id="@+id/ivPicture"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        />
+        android:background="@color/colorBlack"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/tvPictureTitle"

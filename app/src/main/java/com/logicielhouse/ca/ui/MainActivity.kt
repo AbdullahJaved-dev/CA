@@ -89,6 +89,31 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 drawerLayout.closeDrawers()
                 return true
             }
+            R.id.ic_News -> {
+                startActivity(Intent(this, NewsActivity::class.java))
+                drawerLayout.closeDrawers()
+                return true
+            }
+            R.id.ic_Videos -> {
+                startActivity(Intent(this, VideosActivity::class.java))
+                drawerLayout.closeDrawers()
+                return true
+            }
+            R.id.ic_Images -> {
+                startActivity(Intent(this, ImagesActivity::class.java))
+                drawerLayout.closeDrawers()
+                return true
+            }
+            R.id.ic_Songs -> {
+                startActivity(Intent(this, SongsActivity::class.java))
+                drawerLayout.closeDrawers()
+                return true
+            }
+            R.id.ic_Notifications -> {
+                startActivity(Intent(this, NotificationsActivity::class.java))
+                drawerLayout.closeDrawers()
+                return true
+            }
         }
         return false
     }
