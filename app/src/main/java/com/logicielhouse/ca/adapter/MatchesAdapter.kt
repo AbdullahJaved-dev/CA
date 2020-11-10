@@ -8,9 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
-import com.example.kotlindemoproject.utils.Helper
 import com.logicielhouse.ca.R
 import com.logicielhouse.ca.model.MatchesModel
+import com.logicielhouse.ca.utils.convertDateTimeToMDY
+import com.logicielhouse.ca.utils.convertTimeTo12HrFormat
 
 /**
  * Created by Abdullah on 10/23/2020.
@@ -59,9 +60,9 @@ class MatchesAdapters(
         fun bind(match: MatchesModel, onMatchTicketClickListener: MatchTicketClickListener) {
             tvTeam1Name?.text = match.team1Name
             tvTeam2Name?.text = match.team2Name
-            tvDate?.text = Helper().convertDateTimeToMDY(match.timeSchedule)
+            tvDate?.text = convertDateTimeToMDY(match.timeSchedule)
             tvLocation?.text = match.match_description
-            tvTime?.text = Helper().convertTimeTo12HrFormat(match.timeSchedule)
+            tvTime?.text = convertTimeTo12HrFormat(match.timeSchedule)
             tvName?.text = match.match_description
 
             ivTeam1Logo?.let {

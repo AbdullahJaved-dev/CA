@@ -6,4 +6,5 @@ package com.logicielhouse.ca.model
 data class NotificationModel(
     var title: String = "",
     var message: String = "",
+    var date: String = ""
 )

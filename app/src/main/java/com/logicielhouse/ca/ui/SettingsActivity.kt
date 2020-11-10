@@ -19,8 +19,6 @@ import com.logicielhouse.ca.utils.locale.LocaleManager
 
 class SettingsActivity : AppCompatActivity() {
     private lateinit var toolbar: ActionBar
-
-
     private lateinit var languageSpinner: Spinner
     var i = 0
 

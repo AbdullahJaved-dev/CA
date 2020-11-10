@@ -10,6 +10,7 @@ class AppConstants {
         const val GET_SOURCES = BASE_URL + "api/getSources"
         const val GET_POINTS = BASE_URL + "api/getClubPoints"
         const val UPLOAD_TOKEN = BASE_URL + "api/addDevice"
+        const val GET_NOTIFICATIONS = BASE_URL + "api/getNotification"
         const val APP_SESSION = "CA"
         const val FIREBASE_TOKEN = "token"
         const val FIREBASE_TOKEN_UPLOADED = "token_uploaded"

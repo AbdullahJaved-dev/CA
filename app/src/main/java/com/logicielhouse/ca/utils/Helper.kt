@@ -1,11 +1,11 @@
-package com.example.kotlindemoproject.utils
+package com.logicielhouse.ca.utils
 
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Helper {
-    fun convertDateTimeToMDY(date: String): String? {
+
+fun convertDateTimeToMDY(date: String): String? {
         try {
             println("date:$date")
             val separatedDateTime = date.split(" ".toRegex()).toTypedArray()
@@ -31,4 +31,3 @@ class Helper {
         }
         return "null"
     }
-}
