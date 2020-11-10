@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "209773405771",
+    "firebase_url": "https://ca-app-522f1.firebaseio.com",
+    "project_id": "ca-app-522f1",
+    "storage_bucket": "ca-app-522f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209773405771:android:33acff1914ec8fab3e4fce",
+        "android_client_info": {
+          "package_name": "com.kingsoft.mysafetycenter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209773405771-42uu1cbhmqmc7ad5qjvjg0rtdem72sed.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJkBmbCpSJgQ5CRZvX9a4iYU1Dt3LsGR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209773405771-42uu1cbhmqmc7ad5qjvjg0rtdem72sed.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209773405771:android:c02b6a5a129655343e4fce",
+        "android_client_info": {
+          "package_name": "com.logicielhouse.ca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209773405771-42uu1cbhmqmc7ad5qjvjg0rtdem72sed.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJkBmbCpSJgQ5CRZvX9a4iYU1Dt3LsGR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209773405771-42uu1cbhmqmc7ad5qjvjg0rtdem72sed.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

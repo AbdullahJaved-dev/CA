@@ -22,9 +22,14 @@ import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.LoadAdError
 import com.logicielhouse.ca.R
 import com.logicielhouse.ca.model.PicturesModel
 import com.logicielhouse.ca.model.VideosModel
+import com.logicielhouse.ca.utils.SessionManager
 import com.logicielhouse.ca.utils.locale.LocaleManager
 import com.logicielhouse.ca.utils.setTextHTML
 import kotlinx.android.synthetic.main.activity_view_media.*
@@ -42,6 +47,8 @@ class ViewMediaActivity : AppCompatActivity(), Player.EventListener {
     private var trackSelector = DefaultTrackSelector(
         AdaptiveTrackSelection.Factory(bandwidthMeter)
     )
+
+    private lateinit var mInterstitialAd: InterstitialAd
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +69,40 @@ class ViewMediaActivity : AppCompatActivity(), Player.EventListener {
                 setupVideoUI(videosModel!!)
             }
         }
+        loadAd()
 
+    }
+
+    private fun loadAd() {
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = getString(R.string.adMobInterstitialAddId)
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
+        mInterstitialAd.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                Log.d("TAG", "onAdLoaded: Add Loaded ")
+            }
+
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.e("TAG", "onAdFailedToLoad: ${adError.message + adError.cause}")
+                finish()
+            }
+
+            override fun onAdOpened() {
+                Log.d("TAG", "onAdOpened: ")
+            }
+
+            override fun onAdClicked() {
+                Log.d("TAG", "onAdClicked: ")
+            }
+
+            override fun onAdLeftApplication() {
+                Log.d("TAG", "onAdLeftApplication: Left Application on Ad")
+            }
+
+            override fun onAdClosed() {
+                finish()
+            }
+        }
     }
 
     private fun setupVideoUI(videosModel: VideosModel) {
@@ -106,7 +146,19 @@ class ViewMediaActivity : AppCompatActivity(), Player.EventListener {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        finish()
+        val showCount: Int = SessionManager.getInstance(this)?.getIntPref("c")!!
+        if (showCount <= 2) {
+            SessionManager.getInstance(this)?.setIntPref("c", showCount + 1)
+            finish()
+        } else {
+            SessionManager.getInstance(this)?.setIntPref("c", 0)
+            if (mInterstitialAd.isLoaded) {
+                mInterstitialAd.show()
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.")
+                finish()
+            }
+        }
     }
 
     override fun onStart() {

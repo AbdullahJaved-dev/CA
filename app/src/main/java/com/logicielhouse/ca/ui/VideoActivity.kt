@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_video.*
 class VideoActivity : AppCompatActivity(), MediaPlayer.OnCompletionListener {
     private var stopPosition: Int = 0
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video)
@@ -23,10 +24,15 @@ class VideoActivity : AppCompatActivity(), MediaPlayer.OnCompletionListener {
         videoView.setMediaController(null)
         videoView.start()
         videoView.setOnCompletionListener(this)
+
     }
 
     override fun onCompletion(p0: MediaPlayer?) {
         p0?.stop()
+        startHomeActivity()
+    }
+
+    private fun startHomeActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
@@ -46,5 +52,4 @@ class VideoActivity : AppCompatActivity(), MediaPlayer.OnCompletionListener {
         videoView.seekTo(stopPosition)
         videoView.start()
     }
-
 }

@@ -2,12 +2,15 @@ package com.logicielhouse.ca
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
+import com.google.android.gms.ads.MobileAds
 
 
 /**
  * Created by Abdullah on 9/29/2020.
  */
 class BaseApplication : Application() {
+
     companion object {
         var instance: BaseApplication? = null
         const val PREFS = "SHARED_PREFS"
@@ -16,6 +19,11 @@ class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        MobileAds.initialize(
+            this
+        ) {
+            Log.d("TAG", "onCreate: Mobile Ads Initialized")
+        }
         instance = this
 
     }

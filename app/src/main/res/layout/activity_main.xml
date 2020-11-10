@@ -30,6 +30,19 @@
             app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
             app:layout_constraintTop_toBottomOf="@id/toolbarMain" />
 
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/_10sdp"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/adMobBannerAddId"
+            ads:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
