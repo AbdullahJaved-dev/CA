@@ -23,6 +23,7 @@ class SplashActivity : AppCompatActivity() {
             finish()
         }, 2500)
     }
+
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(LocaleManager.setLocale(newBase!!))
     }

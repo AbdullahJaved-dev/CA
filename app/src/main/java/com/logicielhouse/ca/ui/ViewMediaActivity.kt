@@ -36,6 +36,7 @@ import kotlinx.android.synthetic.main.activity_view_media.*
 
 
 class ViewMediaActivity : AppCompatActivity(), Player.EventListener {
+
     private lateinit var toolbar: Toolbar
     private var videoURI = ""
     private var player: SimpleExoPlayer? = null
@@ -242,7 +243,7 @@ class ViewMediaActivity : AppCompatActivity(), Player.EventListener {
         if (playbackState == Player.STATE_BUFFERING)
             progressBar.visibility = View.VISIBLE
         else if (playbackState == Player.STATE_READY || playbackState == Player.STATE_ENDED)
-            progressBar.visibility = View.INVISIBLE
+            progressBar.visibility = View.GONE
     }
 
     override fun onRepeatModeChanged(repeatMode: Int) {

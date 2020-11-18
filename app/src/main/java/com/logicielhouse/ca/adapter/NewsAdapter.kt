@@ -72,6 +72,7 @@ class NewsAdapter(
         fun setAdDetail() {
             val adRequest = AdRequest.Builder().build()
             adView.loadAd(adRequest)
+
         }
     }
 
@@ -156,7 +157,6 @@ class NewsAdapter(
         if (newsList.size > 0 && newsList.size > 5) {
             additionalContent = newsList.size / 5
         }
-
         return newsList.size + additionalContent
     }
 }
