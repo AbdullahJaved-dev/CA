@@ -35,7 +35,6 @@ class NotificationUtils(private val mContext: Context) {
     fun displayNotification(notificationModel: NotificationModel, resultIntent: Intent) {
         val message: String = notificationModel.message
         val title: String = notificationModel.title
-
         resultIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
         val resultPendingIntent: PendingIntent = PendingIntent.getActivity(
             mContext,

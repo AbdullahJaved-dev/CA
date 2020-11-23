@@ -36,7 +36,6 @@ class PicturesFragment : Fragment(R.layout.fragment_pivtures),
         getAllPhotos()
         swipeRefresh.setOnRefreshListener {
             photosProgressBar?.visibility = View.VISIBLE
-            photosList = ArrayList()
             getAllPhotos()
             swipeRefresh.isRefreshing =
                 false

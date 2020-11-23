@@ -50,7 +50,7 @@ class BasketballFragment : Fragment(R.layout.fragment_basketball) {
             adapter = tablePointsAdapter2
             layoutManager =
                 LinearLayoutManager(
-                    requireContext(),
+                    requireActivity(),
                     LinearLayoutManager.VERTICAL,
                     false
                 )
@@ -104,16 +104,17 @@ class BasketballFragment : Fragment(R.layout.fragment_basketball) {
                     e.printStackTrace()
                 }
             }, { error ->
-                try {
-                    val response: NetworkResponse = error.networkResponse
-                    if (response.data != null) {
-                        val errorObj = JSONObject(String(response.data))
-                        displayMessage(requireActivity(), errorObj.optString("message"))
+                if (isAdded) {
+                    try {
+                        val response: NetworkResponse = error.networkResponse
+                        if (response.data != null) {
+                            val errorObj = JSONObject(String(response.data))
+                            displayMessage(requireActivity(), errorObj.optString("message"))
+                        }
+                    } catch (e: Exception) {
+                        displayMessage(requireActivity(), getString(R.string.unknown_error))
                     }
-                } catch (e: Exception) {
-                    displayMessage(requireActivity(), getString(R.string.unknown_error))
                 }
-
             }) {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()

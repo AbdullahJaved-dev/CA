@@ -160,7 +160,7 @@ class SongsActivity : AppCompatActivity(), SongsAdapter.SongsAdapterClickListene
             audioPlayer.visibility = View.VISIBLE
         }
         if (player != null) {
-            releasePlayer()
+            releasePlayer(0L, 0)
         }
         currentSong = songModel.songURI
         initializePlayer()
@@ -183,11 +183,19 @@ class SongsActivity : AppCompatActivity(), SongsAdapter.SongsAdapterClickListene
         player?.addListener(this)
     }
 
-    private fun releasePlayer() {
+    private fun releasePlayer(
+        playbackPos: Long = 1L,
+        currWindowIndex: Int = 1
+    ) {
         if (player != null) {
             playWhenReady = player!!.playWhenReady
-            playbackPosition = player!!.currentPosition
-            currentWindow = player!!.currentWindowIndex
+            if (playbackPos == 0L && currWindowIndex == 0) {
+                playbackPosition = 0L
+                currentWindow = 0
+            } else {
+                playbackPosition = player!!.currentPosition
+                currentWindow = player!!.currentWindowIndex
+            }
             player?.release()
             player = null
         }

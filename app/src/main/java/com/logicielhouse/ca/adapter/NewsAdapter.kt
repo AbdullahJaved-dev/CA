@@ -72,7 +72,6 @@ class NewsAdapter(
         fun setAdDetail() {
             val adRequest = AdRequest.Builder().build()
             adView.loadAd(adRequest)
-
         }
     }
 

@@ -23,6 +23,7 @@ class MediaFragment : Fragment(R.layout.fragment_media) {
         viewPagerMedia.apply {
             isUserInputEnabled = true
             adapter = MultimediaViewpagerAdapter(this@MediaFragment)
+            offscreenPageLimit = 1
         }
 
         TabLayoutMediator(tabLayoutMedia, viewPagerMedia) { tab, position ->

@@ -70,7 +70,8 @@ class CAFirebaseMessagingService : FirebaseMessagingService() {
                 "Message data payload: " + remoteMessage.data
             )
             val data: Map<String, String> = remoteMessage.data
-            handleData(data, remoteMessage.notification!!)
+            handleData(data)
+            //handleData(data, remoteMessage.notification!!)
         } else if (remoteMessage.notification != null) {
             Log.d(
                 "NewMessage",
@@ -81,8 +82,19 @@ class CAFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun handleNotification(remoteMessageNotification: RemoteMessage.Notification) {
-        val message = remoteMessageNotification.body
-        val title = remoteMessageNotification.title
+
+        val title: String? = try {
+            remoteMessageNotification.title
+        } catch (e: Exception) {
+            "Dummy Title"
+        }
+
+        val message: String? = try {
+            remoteMessageNotification.body
+        } catch (e: Exception) {
+            "Dummy Description"
+        }
+
         val notificationVO = NotificationModel()
         notificationVO.title = title!!
         notificationVO.message = message!!
@@ -92,14 +104,23 @@ class CAFirebaseMessagingService : FirebaseMessagingService() {
         notificationUtils.playNotificationSound()
     }
 
+    //remoteMsgNotification: RemoteMessage.Notification
     private fun handleData(
-        data: Map<String, String>,
-        remoteMsgNotification: RemoteMessage.Notification
+        data: Map<String, String>
     ) {
-        val title = remoteMsgNotification.title
-        val message = remoteMsgNotification.body
-        val resultIntent = Intent(applicationContext, MainActivity::class.java)
+        val title: String? = try {
+            data["title"] ?: error("")
+        } catch (e: Exception) {
+            "Dummy Title"
+        }
 
+        val message: String? = try {
+            data["body"] ?: error("")
+        } catch (e: Exception) {
+            "Dummy Description"
+        }
+
+        val resultIntent = Intent(applicationContext, MainActivity::class.java)
         val notificationVO = NotificationModel()
         notificationVO.title = title!!
         notificationVO.message = message!!

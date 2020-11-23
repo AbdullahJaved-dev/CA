@@ -44,7 +44,7 @@ class FootballFragment : Fragment(R.layout.fragment_football) {
             adapter = tablePointsAdapter
             layoutManager =
                 LinearLayoutManager(
-                    requireContext(),
+                    requireActivity(),
                     LinearLayoutManager.VERTICAL,
                     false
                 )

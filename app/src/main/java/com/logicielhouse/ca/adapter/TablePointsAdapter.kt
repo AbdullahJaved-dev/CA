@@ -33,7 +33,7 @@ class TablePointsAdapter(private val pointsList: ArrayList<TablePointsModel>) :
     }
 
     override fun onBindViewHolder(holder: PointsViewHolder, position: Int) {
-        val pointsItem = pointsList[position]
+        val pointsItem = pointsList[holder.adapterPosition]
         holder.apply {
             tvPosition.text = pointsItem.position.toString()
             tvClubName.text = pointsItem.clubName

@@ -4,6 +4,7 @@ package com.logicielhouse.ca.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -132,6 +133,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener,
     }
 
     private fun getAllNews() {
+        val activity = activity
         val requestQueue: RequestQueue = Volley.newRequestQueue(requireContext())
         val newsRequest = object :
             JsonObjectRequest(Method.GET, AppConstants.GET_NEWS, null, { response ->
@@ -160,14 +162,16 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener,
                     e.printStackTrace()
                 }
             }, { error ->
-                try {
-                    val response: NetworkResponse = error.networkResponse
-                    if (response.data != null) {
-                        val errorObj = JSONObject(String(response.data))
-                        displayMessage(requireActivity(), errorObj.optString("message"))
+                if (activity != null && isAdded) {
+                    try {
+                        val response: NetworkResponse = error.networkResponse
+                        if (response.data != null) {
+                            val errorObj = JSONObject(String(response.data))
+                            displayMessage(activity, errorObj.optString("message"))
+                        }
+                    } catch (e: Exception) {
+                        displayMessage(activity, getString(R.string.unknown_error))
                     }
-                } catch (e: Exception) {
-                    displayMessage(requireActivity(), getString(R.string.unknown_error))
                 }
             }) {
             override fun getHeaders(): MutableMap<String, String> {
@@ -183,6 +187,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener,
     }
 
     private fun getAllVideos() {
+        val activity = activity
         val videosRequest = object :
             JsonObjectRequest(Method.GET, AppConstants.GET_SOURCES, null, { response ->
                 try {
@@ -208,14 +213,16 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener,
                     e.printStackTrace()
                 }
             }, { error ->
-                try {
-                    val response: NetworkResponse = error.networkResponse
-                    if (response.data != null) {
-                        val errorObj = JSONObject(String(response.data))
-                        displayMessage(requireActivity(), errorObj.optString("message"))
+                if (activity != null && isAdded) {
+                    try {
+                        val response: NetworkResponse = error.networkResponse
+                        if (response.data != null) {
+                            val errorObj = JSONObject(String(response.data))
+                            displayMessage(activity, errorObj.optString("message"))
+                        }
+                    } catch (e: Exception) {
+                        displayMessage(activity, getString(R.string.unknown_error))
                     }
-                } catch (e: Exception) {
-                    displayMessage(requireActivity(), getString(R.string.unknown_error))
                 }
             }) {
             override fun getHeaders(): MutableMap<String, String> {
@@ -235,9 +242,9 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener,
     }
 
     private fun getTablePoints() {
+        val activity = activity
         val pointsRequest = object :
             JsonObjectRequest(Method.GET, AppConstants.GET_POINTS, null, { response ->
-
                 try {
                     pointsList.clear()
                     val pointsArray: JSONArray = response.getJSONArray("club_point")
@@ -257,25 +264,29 @@ class HomeFragment : Fragment(R.layout.fragment_home), View.OnClickListener,
                         pointsList.add(pointsModel)
                         i++
                     }
-                    tablePointsAdapter.notifyDataSetChanged()
-                    if (progressBar != null) {
-                        progressBar.visibility = View.GONE
+                    if (activity != null && isAdded) {
+                        tablePointsAdapter.notifyDataSetChanged()
+                        if (progressBar != null) {
+                            progressBar.visibility = View.GONE
+                        }
                     }
                 } catch (e: JSONException) {
-                    e.printStackTrace()
-                    progressBar.visibility = View.GONE
+                    Log.e("Error", "getTablePoints: " + e.printStackTrace())
                 }
             }, { error ->
-                try {
-                    progressBar.visibility = View.GONE
-                    val response: NetworkResponse = error.networkResponse
-                    if (response.data != null) {
-                        val errorObj = JSONObject(String(response.data))
-                        displayMessage(requireActivity(), errorObj.optString("message"))
+                if (activity != null && isAdded) {
+                    try {
+                        progressBar.visibility = View.GONE
+                        val response: NetworkResponse = error.networkResponse
+                        if (response.data != null) {
+                            val errorObj = JSONObject(String(response.data))
+                            displayMessage(activity, errorObj.optString("message"))
+                        }
+                    } catch (e: Exception) {
+                        displayMessage(activity, getString(R.string.unknown_error))
                     }
-                } catch (e: Exception) {
-                    displayMessage(requireActivity(), getString(R.string.unknown_error))
                 }
+
             }) {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()

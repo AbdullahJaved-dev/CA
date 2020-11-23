@@ -33,6 +33,7 @@
         app:rewind_increment="3000"
         app:show_timeout="0"
         app:use_artwork="true"
+        android:isScrollContainer="false"
         app:use_controller="true" />
 
     <ProgressBar

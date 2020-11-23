@@ -29,10 +29,15 @@
     <string name="group_b">Group B</string>
     <string name="no_data">No data found!</string>
     <string name="notifications">Notifications</string>
-    <!--
-        <string name="adMobApplicationId" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
-        <string name="adMobInterstitialAddId" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
-        <string name="adMobBannerAddId" translatable="false">ca-app-pub-3940256099942544/6300978111</string>-->
+
+    //Test
+
+    <!--<string name="adMobApplicationId" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="adMobInterstitialAddId" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="adMobBannerAddId" translatable="false">ca-app-pub-3940256099942544/6300978111</string>-->
+
+
+    //Real
 
     <string name="adMobApplicationId" translatable="false">ca-app-pub-6263044097299250~9608707229</string>
     <string name="adMobInterstitialAddId" translatable="false">ca-app-pub-6263044097299250/2249586794</string>

@@ -29,7 +29,6 @@ import com.google.android.gms.ads.LoadAdError
 import com.logicielhouse.ca.R
 import com.logicielhouse.ca.model.PicturesModel
 import com.logicielhouse.ca.model.VideosModel
-import com.logicielhouse.ca.utils.SessionManager
 import com.logicielhouse.ca.utils.locale.LocaleManager
 import com.logicielhouse.ca.utils.setTextHTML
 import kotlinx.android.synthetic.main.activity_view_media.*
@@ -70,21 +69,28 @@ class ViewMediaActivity : AppCompatActivity(), Player.EventListener {
                 setupVideoUI(videosModel!!)
             }
         }
-        loadAd()
-
     }
 
     private fun loadAd() {
+        progressBar2.visibility = View.VISIBLE
         mInterstitialAd = InterstitialAd(this)
         mInterstitialAd.adUnitId = getString(R.string.adMobInterstitialAddId)
         mInterstitialAd.loadAd(AdRequest.Builder().build())
         mInterstitialAd.adListener = object : AdListener() {
             override fun onAdLoaded() {
                 Log.d("TAG", "onAdLoaded: Add Loaded ")
+                progressBar2.visibility = View.GONE
+                mInterstitialAd.show()
             }
 
             override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.e("TAG", "onAdFailedToLoad: ${adError.message + adError.cause}")
+                Log.e(
+                    "TAG",
+                    "onAdFailedToLoad: ${adError.message + " Cause: " + adError.cause + adError.code + adError.responseInfo}"
+                )
+                progressBar2.visibility = View.GONE
+                Toast.makeText(this@ViewMediaActivity, "Failed to load Ad!", Toast.LENGTH_SHORT)
+                    .show()
                 finish()
             }
 
@@ -146,20 +152,8 @@ class ViewMediaActivity : AppCompatActivity(), Player.EventListener {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        val showCount: Int = SessionManager.getInstance(this)?.getIntPref("c")!!
-        if (showCount <= 2) {
-            SessionManager.getInstance(this)?.setIntPref("c", showCount + 1)
-            finish()
-        } else {
-            SessionManager.getInstance(this)?.setIntPref("c", 0)
-            if (mInterstitialAd.isLoaded) {
-                mInterstitialAd.show()
-            } else {
-                Log.d("TAG", "The interstitial wasn't loaded yet.")
-                finish()
-            }
-        }
+        loadAd()
+        //super.onBackPressed()
     }
 
     override fun onStart() {

@@ -45,11 +45,12 @@ class SongsFragment : Fragment(R.layout.fragment_songs), SongsAdapter.SongsAdapt
     private var songsList = ArrayList<SongModel>()
     private var currentSong: String? = null
 
+
     //Exo Player
     private var player: SimpleExoPlayer? = null
     private var playWhenReady = true
     private var currentWindow = 0
-    private var playbackPosition: Long = 0
+    private var playbackPosition: Long = 0L
     private val bandwidthMeter = DefaultBandwidthMeter()
     private val loadControl = DefaultLoadControl()
     private var trackSelector = DefaultTrackSelector(
@@ -138,7 +139,7 @@ class SongsFragment : Fragment(R.layout.fragment_songs), SongsAdapter.SongsAdapt
             audioPlayer.visibility = View.VISIBLE
         }
         if (player != null) {
-            releasePlayer()
+            releasePlayer(0L, 0)
         }
         currentSong = songModel.songURI
         initializePlayer()
@@ -153,7 +154,7 @@ class SongsFragment : Fragment(R.layout.fragment_songs), SongsAdapter.SongsAdapt
         val uri = Uri.parse(currentSong)
         mediaSource = buildMediaSource(uri)
 
-        player?.playWhenReady = false
+        player?.playWhenReady = true
         player?.seekTo(currentWindow, playbackPosition)
         player?.prepare(mediaSource, false, false)
         audioPlayer.player = player
@@ -161,11 +162,19 @@ class SongsFragment : Fragment(R.layout.fragment_songs), SongsAdapter.SongsAdapt
         player?.addListener(this)
     }
 
-    private fun releasePlayer() {
+    private fun releasePlayer(
+        playbackPos: Long = 1L,
+        currWindowIndex: Int = 1
+    ) {
         if (player != null) {
             playWhenReady = player!!.playWhenReady
-            playbackPosition = player!!.currentPosition
-            currentWindow = player!!.currentWindowIndex
+            if (playbackPos == 0L && currWindowIndex == 0) {
+                playbackPosition = 0L
+                currentWindow = 0
+            } else {
+                playbackPosition = player!!.currentPosition
+                currentWindow = player!!.currentWindowIndex
+            }
             player?.release()
             player = null
         }
