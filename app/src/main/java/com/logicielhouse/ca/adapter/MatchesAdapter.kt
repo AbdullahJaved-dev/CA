@@ -2,6 +2,7 @@ package com.logicielhouse.ca.adapter
 
 import android.app.Activity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -21,43 +22,19 @@ class MatchesAdapters(
     private val onMatchTicketClickListener: MatchTicketClickListener
 ) : RecyclerView.Adapter<MatchesAdapters.MyRidesViewHolder>() {
 
+    interface MatchTicketClickListener {
+        fun onMatchTicketClickListener()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyRidesViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        return MyRidesViewHolder(inflater, parent)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.ticket_matches, parent, false)
+        return MyRidesViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MyRidesViewHolder, position: Int) {
-        val match: MatchesModel = list[position]
-        holder.bind(match, onMatchTicketClickListener)
-    }
-
-    override fun getItemCount(): Int = list.size
-
-    inner class MyRidesViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.ticket_matches, parent, false)) {
-        private var tvTeam1Name: TextView? = null
-        private var tvTeam2Name: TextView? = null
-        private var tvDate: TextView? = null
-        private var tvLocation: TextView? = null
-        private var tvTime: TextView? = null
-        private var tvName: TextView? = null
-        private var ivTeam1Logo: ImageView? = null
-        private var ivTeam2Logo: ImageView? = null
-
-
-        init {
-            tvTeam1Name = itemView.findViewById(R.id.tvTeam1Name)
-            tvTeam2Name = itemView.findViewById(R.id.tvTeam2Name)
-            tvDate = itemView.findViewById(R.id.tvDate)
-            tvLocation = itemView.findViewById(R.id.tvLocation)
-            tvTime = itemView.findViewById(R.id.tvTime)
-            tvName = itemView.findViewById(R.id.tvName)
-            ivTeam1Logo = itemView.findViewById(R.id.ivTeam1Logo)
-            ivTeam2Logo = itemView.findViewById(R.id.ivTeam2Logo)
-
-        }
-
-        fun bind(match: MatchesModel, onMatchTicketClickListener: MatchTicketClickListener) {
+        val match: MatchesModel = list[holder.adapterPosition]
+        holder.apply {
             tvTeam1Name?.text = match.team1Name
             tvTeam2Name?.text = match.team2Name
             tvDate?.text = convertDateTimeToMDY(match.timeSchedule)
@@ -68,11 +45,13 @@ class MatchesAdapters(
             ivTeam1Logo?.let {
                 Glide.with(tvTeam1Name?.context as Activity).load(match.team1Logo)
                     .override(SIZE_ORIGINAL)
+                    .error(R.drawable.abc_vector_test)
                     .into(it)
             }
             ivTeam2Logo?.let {
                 Glide.with(tvTeam1Name?.context as Activity).load(match.team2Logo)
                     .override(SIZE_ORIGINAL)
+                    .error(R.drawable.abc_vector_test)
                     .into(it)
             }
 
@@ -80,11 +59,20 @@ class MatchesAdapters(
                 onMatchTicketClickListener.onMatchTicketClickListener()
             }
         }
-
     }
 
-    interface MatchTicketClickListener {
-        fun onMatchTicketClickListener()
+    override fun getItemCount(): Int = list.size
+
+    class MyRidesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvTeam1Name: TextView? = itemView.findViewById(R.id.tvTeam1Name)
+        val tvTeam2Name: TextView? = itemView.findViewById(R.id.tvTeam2Name)
+        val tvDate: TextView? = itemView.findViewById(R.id.tvDate)
+        val tvLocation: TextView? = itemView.findViewById(R.id.tvLocation)
+        val tvTime: TextView? = itemView.findViewById(R.id.tvTime)
+        val tvName: TextView? = itemView.findViewById(R.id.tvName)
+        val ivTeam1Logo: ImageView? = itemView.findViewById(R.id.ivTeam1Logo)
+        val ivTeam2Logo: ImageView? = itemView.findViewById(R.id.ivTeam2Logo)
     }
+
 
 }

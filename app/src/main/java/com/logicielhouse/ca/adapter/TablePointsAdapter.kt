@@ -16,6 +16,8 @@ import com.logicielhouse.ca.model.TablePointsModel
  */
 class TablePointsAdapter(private val pointsList: ArrayList<TablePointsModel>) :
     RecyclerView.Adapter<TablePointsAdapter.PointsViewHolder>() {
+
+
     class PointsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvPosition: TextView = itemView.findViewById(R.id.tvPosition)
         val tvClubName: TextView = itemView.findViewById(R.id.tvClubName)
@@ -33,8 +35,9 @@ class TablePointsAdapter(private val pointsList: ArrayList<TablePointsModel>) :
     }
 
     override fun onBindViewHolder(holder: PointsViewHolder, position: Int) {
-        val pointsItem = pointsList[holder.adapterPosition]
+
         holder.apply {
+            val pointsItem = pointsList[this.adapterPosition]
             tvPosition.text = pointsItem.position.toString()
             tvClubName.text = pointsItem.clubName
             tvGamesPlayed.text = pointsItem.gamePlayed.toString()
