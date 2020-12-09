@@ -1,15 +1,20 @@
 package com.logicielhouse.ca.ui
 
 import android.content.Context
+import android.content.pm.ActivityInfo
+import android.content.res.Resources
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.ExtractorMediaSource
@@ -34,7 +39,7 @@ import com.logicielhouse.ca.utils.setTextHTML
 import kotlinx.android.synthetic.main.activity_view_media.*
 
 
-class ViewMediaActivity : AppCompatActivity(), Player.EventListener {
+class ViewMediaActivity : AppCompatActivity(), Player.EventListener, View.OnClickListener {
 
     private lateinit var toolbar: Toolbar
     private var videoURI = ""
@@ -47,7 +52,8 @@ class ViewMediaActivity : AppCompatActivity(), Player.EventListener {
     private var trackSelector = DefaultTrackSelector(
         AdaptiveTrackSelection.Factory(bandwidthMeter)
     )
-
+    var fullScreen: Boolean = false
+    lateinit var btnFullScreen: ImageView
     private lateinit var mInterstitialAd: InterstitialAd
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +66,10 @@ class ViewMediaActivity : AppCompatActivity(), Player.EventListener {
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
+
+        btnFullScreen = exoplayerView.findViewById(R.id.exo_fullscreen_icon)
+        btnFullScreen.setOnClickListener(this)
+
         if (intent != null) {
             if (intent.getParcelableExtra<PicturesModel>("picture") != null) {
                 val picturesModel = intent.getParcelableExtra<PicturesModel>("picture")
@@ -284,6 +294,46 @@ class ViewMediaActivity : AppCompatActivity(), Player.EventListener {
 
     override fun onSeekProcessed() {
 
+    }
+
+    override fun onClick(p0: View?) {
+        when (p0?.id) {
+            R.id.exo_fullscreen_icon -> {
+                if (fullScreen) {
+                    btnFullScreen.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            this,
+                            R.drawable.exo_controls_fullscreen_enter
+                        )
+                    )
+                    window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+                    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                    val params = exoplayerView.layoutParams as ConstraintLayout.LayoutParams
+                    params.width = ConstraintLayout.LayoutParams.MATCH_PARENT
+                    params.height = 0
+                    params.topToTop = R.id.a
+                    params.bottomToBottom = R.id.a
+                    params.dimensionRatio = "1.7:1"
+                    exoplayerView.layoutParams = params
+                    fullScreen = false
+                } else {
+                    btnFullScreen.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            this,
+                            R.drawable.exo_controls_fullscreen_exit
+                        )
+                    )
+                    window.decorView.systemUiVisibility =
+                        View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                    val params = exoplayerView.layoutParams as ConstraintLayout.LayoutParams
+                    params.width = ConstraintLayout.LayoutParams.MATCH_PARENT
+                    params.height = Resources.getSystem().displayMetrics.widthPixels
+                    exoplayerView.layoutParams = params
+                    fullScreen = true
+                }
+            }
+        }
     }
 
 }
