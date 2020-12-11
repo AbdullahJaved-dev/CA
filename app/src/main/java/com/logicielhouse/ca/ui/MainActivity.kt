@@ -4,12 +4,17 @@ package com.logicielhouse.ca.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType.IMMEDIATE
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.logicielhouse.ca.R
 import com.logicielhouse.ca.fragments.*
 import com.logicielhouse.ca.service.CAFirebaseMessagingService.Companion.uploadToken
@@ -21,11 +26,26 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener,
     NavigationView.OnNavigationItemSelectedListener {
-    //private lateinit var mAdView: AdView
+    private lateinit var appUpdateManager: AppUpdateManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        appUpdateManager = AppUpdateManagerFactory.create(this)
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                && appUpdateInfo.isUpdateTypeAllowed(IMMEDIATE)
+            ) {
+                appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo,
+                    IMMEDIATE,
+                    this,
+                    200
+                )
+            }
+        }
+
         setUpUI()
         if (savedInstanceState == null) {
             openFragment(HomeFragment.newInstance(), 1)
@@ -65,37 +85,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         drawerLayout.addDrawerListener(toggle)
         toggle.isDrawerIndicatorEnabled = true
         toggle.syncState()
-
-        //mAdView = findViewById(R.id.adView)
-        //val adRequest = AdRequest.Builder().build()
-        //mAdView.loadAd(adRequest)
-
-        /*mAdView.adListener = object : AdListener() {
-            override fun onAdLoaded() {
-                Log.d("TAG", "onAdLoaded: Add Loaded ")
-            }
-
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.e("TAG", "onAdFailedToLoad: ${adError.message + adError.cause}")
-            }
-
-            override fun onAdOpened() {
-                Log.d("TAG", "onAdOpened: ")
-            }
-
-            override fun onAdClicked() {
-                Log.d("TAG", "onAdClicked: ")
-            }
-
-            override fun onAdLeftApplication() {
-                Log.d("TAG", "onAdLeftApplication: Left Application on Ad")
-            }
-
-            override fun onAdClosed() {
-                Log.d("TAG", "onAdClosed: ")
-            }
-
-        }*/
     }
 
     fun openFragment(fragment: Fragment, first: Int = 0) {
@@ -165,5 +154,34 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(LocaleManager.setLocale(newBase!!))
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 200) {
+            if (requestCode != RESULT_OK) {
+                Log.d("result", "Update flow failed! Result code: $resultCode")
+            }
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        appUpdateManager
+            .appUpdateInfo
+            .addOnSuccessListener { appUpdateInfo ->
+                if (appUpdateInfo.updateAvailability()
+                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
+                ) {
+                    // If an in-app update is already running, resume the update.
+                    appUpdateManager.startUpdateFlowForResult(
+                        appUpdateInfo,
+                        IMMEDIATE,
+                        this,
+                        200
+                    )
+                }
+            }
     }
 }

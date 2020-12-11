@@ -15,8 +15,8 @@ android {
         applicationId "com.logicielhouse.ca"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 6
-        versionName "2.0.1"
+        versionCode 7
+        versionName "2.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -76,5 +76,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging-ktx'
 
 
-    implementation 'com.google.android.gms:play-services-ads:19.5.0'
+    implementation 'com.google.android.gms:play-services-ads:19.6.0'
+
+    implementation 'com.google.android.play:core-ktx:1.8.1'
 }

@@ -47,21 +47,26 @@ class MatchesFragment : Fragment(R.layout.fragment_matches),
         val stringRequest: StringRequest = object : StringRequest(
             Method.GET, url,
             Response.Listener { response ->
-                try {
-                    println("API Response is: $response")
-                    extractData(JSONObject(response))
+                if (isAdded) {
+                    try {
+                        println("API Response is: $response")
+                        extractData(JSONObject(response))
 
-                } catch (e: JSONException) {
-                    e.printStackTrace()
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
+                    }
                 }
             },
             Response.ErrorListener { error ->
-                try {
-                    matchesProgressBar.visibility = View.GONE
-                    Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT).show()
-                    println("API Erro is:$error")
-                } catch (e: Exception) {
-                    e.printStackTrace()
+                if (isAdded) {
+                    try {
+                        matchesProgressBar.visibility = View.GONE
+                        Toast.makeText(requireActivity(), error.toString(), Toast.LENGTH_SHORT)
+                            .show()
+                        println("API Error is:$error")
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
 
             }) {
@@ -73,7 +78,6 @@ class MatchesFragment : Fragment(R.layout.fragment_matches),
                         BaseApplication.PREFS,
                         Context.MODE_PRIVATE
                     )
-                headers["type"] = "songs"
                 headers["languages-code"] = pref.getString(BaseApplication.LOCALE, "ar") as String
                 return headers
             }
@@ -99,6 +103,7 @@ class MatchesFragment : Fragment(R.layout.fragment_matches),
                     val team2_logo = matchObj.getString("team2_logo")
                     val time_schedule = matchObj.getString("time_sechudel")
                     val match_description = matchObj.getString("match_description")
+                    val matchResult = matchObj.getString("result")
                     matchesList.add(
                         MatchesModel(
                             team1_name,
@@ -106,7 +111,8 @@ class MatchesFragment : Fragment(R.layout.fragment_matches),
                             team2_name,
                             team2_logo,
                             time_schedule,
-                            match_description
+                            match_description,
+                            matchResult
                         )
                     )
                 }
@@ -119,7 +125,7 @@ class MatchesFragment : Fragment(R.layout.fragment_matches),
         }
         val matchesAdapters = MatchesAdapters(matchesList, this)
 
-        if (matchesProgressBar != null) {
+        if (isAdded) {
             matchesProgressBar.visibility = View.GONE
             rvMatches.layoutManager =
                 LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)

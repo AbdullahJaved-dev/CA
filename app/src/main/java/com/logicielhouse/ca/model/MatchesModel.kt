@@ -9,5 +9,6 @@ data class MatchesModel(
     val team2Name: String,
     val team2Logo: String,
     val timeSchedule: String,
-    val match_description: String
+    val match_description: String,
+    val result: String = ""
 )

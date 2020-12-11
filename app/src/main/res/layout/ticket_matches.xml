@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         android:padding="20dp"
-        android:baselineAligned="false"
         android:weightSum="3">
 
         <LinearLayout
@@ -25,6 +25,7 @@
                 android:id="@+id/ivTeam1Logo"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/abc_vector_test" />
 
             <TextView
@@ -40,6 +41,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/fixtureBlock"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -52,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/roboto"
-                android:text="Location"
+                android:text="SUN 27/9"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_12ssp" />
 
@@ -62,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/roboto"
-                android:text="SUN 27/9"
+                android:text="Location"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/_12ssp" />
 
@@ -88,6 +90,72 @@
 
         </LinearLayout>
 
+        <RelativeLayout
+            android:id="@+id/resultBlock"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvResultDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/roboto"
+                android:text="SUN 27/9"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12ssp" />
+
+            <TextView
+                android:id="@+id/tvResultLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvResultDate"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:fontFamily="@font/roboto"
+                android:text="Location"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_12ssp" />
+
+            <TextView
+                android:id="@+id/tvTeam1Score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvResultLocation"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/_5sdp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="0"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_22ssp" />
+
+            <TextView
+                android:id="@+id/tvTeam2Score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/_5sdp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="0"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_22ssp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/roboto"
+                android:text="FT"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/_14ssp" />
+
+        </RelativeLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -99,6 +167,7 @@
                 android:id="@+id/ivTeam2Logo"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:scaleType="fitXY"
                 android:src="@drawable/abc_vector_test" />
 
             <TextView

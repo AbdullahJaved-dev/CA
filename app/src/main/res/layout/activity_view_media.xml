@@ -37,14 +37,14 @@
                         android:id="@+id/exoplayerView"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintDimensionRatio="1.7:1"
-                        app:layout_constraintTop_toTopOf="parent"
                         android:background="@color/colorBlack"
                         android:visibility="gone"
                         app:controller_layout_id="@layout/layout_exoplayer_controllers"
                         app:fastforward_increment="10000"
                         app:hide_on_touch="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1.7:1"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:player_layout_id="@layout/exo_simple_player_view"
                         app:resize_mode="fill"
                         app:rewind_increment="10000"
@@ -65,9 +65,12 @@
                     <ImageView
                         android:id="@+id/ivMediaThumbnail"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:background="@color/colorBlack"
-                        android:scaleType="centerCrop" />
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1.7:1"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/ivPlayBtn"
