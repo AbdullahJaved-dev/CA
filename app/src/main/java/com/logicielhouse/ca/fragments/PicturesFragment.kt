@@ -94,15 +94,17 @@ class PicturesFragment : Fragment(R.layout.fragment_pivtures),
                     e.printStackTrace()
                 }
             }, { error ->
-                try {
-                    photosProgressBar.visibility = View.GONE
-                    val response: NetworkResponse = error.networkResponse
-                    if (response.data != null) {
-                        val errorObj = JSONObject(String(response.data))
-                        displayMessage(requireActivity(), errorObj.optString("message"))
+                if (isAdded && activity != null) {
+                    try {
+                        photosProgressBar.visibility = View.GONE
+                        val response: NetworkResponse = error.networkResponse
+                        if (response.data != null) {
+                            val errorObj = JSONObject(String(response.data))
+                            displayMessage(requireActivity(), errorObj.optString("message"))
+                        }
+                    } catch (e: Exception) {
+                        displayMessage(requireActivity(), getString(R.string.unknown_error))
                     }
-                } catch (e: Exception) {
-                    displayMessage(requireActivity(), getString(R.string.unknown_error))
                 }
             }) {
             override fun getHeaders(): MutableMap<String, String> {

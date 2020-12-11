@@ -102,16 +102,18 @@ class SongsFragment : Fragment(R.layout.fragment_songs), SongsAdapter.SongsAdapt
                     e.printStackTrace()
                 }
             }, { error ->
-                try {
-                    videosProgressBar.visibility = View.GONE
-                    val response: NetworkResponse = error.networkResponse
-                    if (response.data != null) {
-                        val errorObj = JSONObject(String(response.data))
-                        displayMessage(requireActivity(), errorObj.optString("message"))
+                if (isAdded && activity != null) {
+                    try {
+                        videosProgressBar.visibility = View.GONE
+                        val response: NetworkResponse = error.networkResponse
+                        if (response.data != null) {
+                            val errorObj = JSONObject(String(response.data))
+                            displayMessage(requireActivity(), errorObj.optString("message"))
+                        }
+                    } catch (e: Exception) {
+                        Log.e("TAG", "getAllVideos: " + e.localizedMessage)
+                        displayMessage(requireActivity(), getString(R.string.unknown_error))
                     }
-                } catch (e: Exception) {
-                    Log.e("TAG", "getAllVideos: " + e.localizedMessage)
-                    displayMessage(requireContext(), getString(R.string.unknown_error))
                 }
             }) {
             override fun getHeaders(): MutableMap<String, String> {

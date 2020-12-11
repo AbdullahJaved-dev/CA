@@ -71,14 +71,16 @@ class OthersFragment : Fragment(R.layout.fragment_others) {
                     e.printStackTrace()
                 }
             }, { error ->
-                try {
-                    val response: NetworkResponse = error.networkResponse
-                    if (response.data != null) {
-                        val errorObj = JSONObject(String(response.data))
-                        displayMessage(requireActivity(), errorObj.optString("message"))
+                if (isAdded && activity != null) {
+                    try {
+                        val response: NetworkResponse = error.networkResponse
+                        if (response.data != null) {
+                            val errorObj = JSONObject(String(response.data))
+                            displayMessage(requireActivity(), errorObj.optString("message"))
+                        }
+                    } catch (e: Exception) {
+                        displayMessage(requireActivity(), getString(R.string.unknown_error))
                     }
-                } catch (e: Exception) {
-                    displayMessage(requireActivity(), getString(R.string.unknown_error))
                 }
             }) {
             override fun getHeaders(): MutableMap<String, String> {
